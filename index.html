@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	table, th, td {
+	  border:1px solid black;
+	  padding: 20px;
+	}
+	table{
+		background: darkseagreen;
+	}
+	th{
+		background: mediumseagreen;
+		color: whitesmoke;
+	}
+	.TL{
+		background: mediumseagreen;
+    	color: whitesmoke;
+		font-weight: bold;
+	}
+	#USD,#GBP{
+		font-size: 20px;
+	}
+	.content{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+</style>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+	<div class="content">
+		<table class="table">
+			<tr>
+			<th></th>
+			<th>USD</th>
+			<th>GBP</th>
+			</tr>
+			<tr>
+			<td class="TL">TL</td>
+			<td id="USD"></td>
+			<td id="GBP"></td>
+			</tr>
+		
+		</table>
+	</div>
+<script>
+
+
+	var USD;
+	var GBP;
+
+
+	request();
+	//setInterval(request, 5000);
+		
+
+	function request(){
+		var requestURL = 'https://api.exchangerate.host/latest?base=TRY';
+		var request = new XMLHttpRequest();
+		request.open('GET', requestURL);
+		request.responseType = 'json';
+		request.send();
+
+		request.onload = function() {
+			var response = request.response;
+			
+			USD = 1/response.rates.USD
+			GBP = 1/response.rates.GBP
+
+			document.getElementById("USD").innerHTML = USD.toFixed(4);
+			document.getElementById("GBP").innerHTML = GBP.toFixed(4);
+			console.log(response);
+		}
+	}
+</script>
+
+</body>
+</html>
