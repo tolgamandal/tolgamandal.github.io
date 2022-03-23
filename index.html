@@ -3,6 +3,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+	html{
+		height: 100%;
+	}
+	body{
+		height: 100%;
+		margin: 0;
+		background: darkorange;
+		text-align: center;
+	}
 	table, th, td {
 	  border:1px solid black;
 	  padding: 20px;
@@ -22,10 +32,16 @@
 	#USD,#GBP{
 		font-size: 20px;
 	}
+	.wrapper{
+		margin-top: 200px;
+	}
 	.content{
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+	h1{
+		color: darkblue;
 	}
 	
 </style>
@@ -33,32 +49,32 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-	<div class="content">
-		<table class="table">
-			<tr>
-			<th></th>
-			<th>USD</th>
-			<th>GBP</th>
-			</tr>
-			<tr>
-			<td class="TL">TL</td>
-			<td id="USD"></td>
-			<td id="GBP"></td>
-			</tr>
-		
-		</table>
+	<div class="wrapper">
+		<h1>Currency Exchange Rates</h1>
+		<div class="content">
+			<table class="table">
+				<tr>
+				<th></th>
+				<th>USD</th>
+				<th>GBP</th>
+				</tr>
+				<tr>
+				<td class="TL">TL</td>
+				<td id="USD"></td>
+				<td id="GBP"></td>
+				</tr>
+			
+			</table>
+		</div>
 	</div>
+
 <script>
-
-
 	var USD;
 	var GBP;
 
-
 	request();
-	//setInterval(request, 5000);
+	setInterval(request, 5000);
 		
-
 	function request(){
 		var requestURL = 'https://api.exchangerate.host/latest?base=TRY';
 		var request = new XMLHttpRequest();
@@ -74,7 +90,6 @@
 
 			document.getElementById("USD").innerHTML = USD.toFixed(4);
 			document.getElementById("GBP").innerHTML = GBP.toFixed(4);
-			console.log("Console");
 			console.log(response);
 		}
 	}
@@ -82,3 +97,4 @@
 
 </body>
 </html>
+
