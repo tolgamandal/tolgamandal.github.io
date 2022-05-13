@@ -11,59 +11,47 @@
 		height: 100%;
 		margin: 0;
 		background: darkorange;
-		text-align: center;
-	}
-	table, th, td {
-		border:1px solid black;
-		padding: 20px;
-	}
-	table{
-		background: darkseagreen;
-	}
-	th{
-		background: mediumseagreen;
-		color: whitesmoke;
-	}
-	.TL{
-		background: mediumseagreen;
-    		color: whitesmoke;
-		font-weight: bold;
-	}
-	#USD,#GBP{
-		font-size: 20px;
-	}
-	.wrapper{
-		margin-top: 200px;
-	}
-	.content{
 		display: flex;
-		justify-content: center;
 		align-items: center;
+		justify-content: center;
 	}
-	h1{
-		color: darkblue;
+
+	input[type=text] {
+        padding: 5px;
+        border: 2px solid #cccccc;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+      }
+      input[type=text]:focus {
+        border-color: #33333;
+      }
+	  input:focus-visible {
+		outline-offset: 0px;
+		outline: none;
 	}
+	button {
+		background-color: #04AA6D;
+		border: none;
+		color: white;
+		padding: 16px 32px;
+		text-decoration: none;
+		margin: 4px 2px;
+		cursor: pointer;
+		margin-left: auto;  
+    	display: block;
+	}
+
 	
 </style>
 <head>
 </head>
 <body>
 	<div class="wrapper">
-		<h1>Currency Exchange Rates</h1>
-		<div class="content">
-			<table class="table">
-				<tr>
-				<th></th>
-				<th>USD</th>
-				<th>GBP</th>
-				</tr>
-				<tr>
-				<td class="TL">TL</td>
-				<td id="USD"></td>
-				<td id="GBP"></td>
-				</tr>
-			
-			</table>
+		<label for="fname">First name: </label>
+		<input type="text" id="input1" name="fname"><br><br>
+		<label for="lname">Last name: </label>
+		<input type="text" id="input2" name="lname"><br><br>
+		<button id="button" onclick="fetchRequest()">Submit</button>
 		</div>
 	</div>
 
@@ -73,8 +61,23 @@
 
 	fetchRequst();
 	//setInterval(request, 5000);
-		
-	function request(){
+	
+
+	function fetchRequest(){
+		var input1 = document.querySelector("#input1").value;
+		console.log(input1);
+
+		var requestURL = 'https://sleepy-dawn-59995.herokuapp.com/employees/6';
+		fetch(requestURL)
+			.then((response) => {
+			return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+			})
+	}
+
+		/*function request(){
 		var requestURL = 'https://api.exchangerate.host/latest?base=TRY';
 		var request = new XMLHttpRequest();
 		
@@ -92,19 +95,11 @@
 			document.getElementById("GBP").innerHTML = GBP.toFixed(4);
 			console.log(response);
 		}
-	}
-
-	function fetchRequst(){
-		var requestURL = 'https://sleepy-dawn-59995.herokuapp.com/employees/6';
-		fetch(requestURL)
-			.then((response) => {
-			return response.json();
-			})
-			.then((data) => {
-				console.log(data);
-			})
-	}
+	}*/
 </script>
 
+
 </body>
+
 </html>
+
