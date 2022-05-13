@@ -2,7 +2,6 @@
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <style>
 
 	html{
@@ -41,7 +40,7 @@
 	function fetchRequest(city){
 
 		
-		var requestURL = 'http://api.weatherstack.com/current?access_key=f908542e92cdfa2a7173958972bb6c66&query=' + city;
+		var requestURL = 'http://api.weatherstack.com/current?access_key=f908542e92cdfa2a7173958972bb6c66&query=' + city + '/';
 		fetch(requestURL)
 			.then((response) => {
 			return response.json();
