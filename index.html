@@ -10,93 +10,63 @@
 	body{
 		height: 100%;
 		margin: 0;
-		background: darkorange;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
 
-	input[type=text] {
-        padding: 5px;
-        border: 2px solid #cccccc;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-      }
-      input[type=text]:focus {
-        border-color: #33333;
-      }
-	  input:focus-visible {
-		outline-offset: 0px;
-		outline: none;
 	}
-	button {
-		background-color: #04AA6D;
-		border: none;
-		color: white;
-		padding: 16px 32px;
-		text-decoration: none;
-		margin: 4px 2px;
-		cursor: pointer;
-		margin-left: auto;  
-    	display: block;
+	.Istanbul{
+		font-size: 40px;
 	}
-
+	.Oslo{
+		font-size: 40px;
+	}
+	img{
+		width: 48px;
+		height: 48px;
+	}
 	
 </style>
 <head>
 </head>
 <body>
 	<div class="wrapper">
-		<label for="fname">First name: </label>
-		<input type="text" id="input1" name="fname"><br><br>
-		<label for="lname">Last name: </label>
-		<input type="text" id="input2" name="lname"><br><br>
-		<button id="button" onclick="fetchRequest()">Submit</button>
-		</div>
+		<div style="display: flex; align-items: center;"><p class="Istanbul">The weather temperature for city İstanbul is currenty: <span id="Istanbul"></span> degree <img id="img_Istanbul" src="" alt=""></p></div>
+		<div style="display: flex; align-items: center;"><p class="Oslo">The weather temperature for city Oslo is currenty: <span id="Oslo"></span> degree</p> <img id="img_Oslo" src="" alt=""></div>
+
 	</div>
 
 <script>
-	var USD;
-	var GBP;
 
-	fetchRequst();
-	//setInterval(request, 5000);
-	
+	fetchRequest("Istanbul")
+	fetchRequest("Oslo")
+	function fetchRequest(city){
 
-	function fetchRequest(){
-		var input1 = document.querySelector("#input1").value;
-		console.log(input1);
-
-		var requestURL = 'https://sleepy-dawn-59995.herokuapp.com/employees/6';
+		
+		var requestURL = 'http://api.weatherstack.com/current?access_key=f908542e92cdfa2a7173958972bb6c66&query=' + city;
 		fetch(requestURL)
 			.then((response) => {
 			return response.json();
 			})
 			.then((data) => {
+				var temp = data.current.temperature
+				host = window.location.host
+				host = "https://tolgamandal.github.io/"
+
+				if(temp < 15){
+					document.querySelector('#img_' + city).src = host + "/home.png"
+				}else{
+					if(data.current.weather_descriptions[0].toLowerCase().includes("sunny")){
+						document.querySelector('#img_' + city).src = host + "/sunny.png"		
+					}else if(data.current.weather_descriptions[0].toLowerCase().includes("rainy")){
+						document.querySelector('#img_' + city).src = host + "/umbrella.png"
+					}else{
+						document.querySelector('#img_' + city).src = host + "/moon.png"
+					}
+				}
+				document.querySelector('#' +city).innerHTML = data.current.temperature
 				console.log(data);
 			})
 	}
+// f908542e92cdfa2a7173958972bb6c66
 
-		/*function request(){
-		var requestURL = 'https://api.exchangerate.host/latest?base=TRY';
-		var request = new XMLHttpRequest();
-		
-		request.open('GET', requestURL);
-		request.responseType = 'json';
-		request.send();
-
-		request.onload = function() {
-			var response = request.response;
-			
-			USD = 1/response.rates.USD
-			GBP = 1/response.rates.GBP
-
-			document.getElementById("USD").innerHTML = USD.toFixed(4);
-			document.getElementById("GBP").innerHTML = GBP.toFixed(4);
-			console.log(response);
-			console.log(response);
-		}
-	}*/
 </script>
 
 
